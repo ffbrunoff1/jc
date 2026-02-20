@@ -190,4 +190,87 @@ export default function PostPage() {
                     <div className="flex items-center space-x-3">
                       <motion.button
                         onClick={handleShare}
-                        className="flex items-center space-x-2 px-4 py-2 bg-primary-100"
+                        className="flex items-center space-x-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-lg hover:bg-primary-200 transition-colors duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Share2 size={18} />
+                        <span>Share</span>
+                      </motion.button>
+                      <motion.button
+                        className="flex items-center space-x-2 px-4 py-2 bg-secondary-100 text-secondary-700 rounded-lg hover:bg-secondary-200 transition-colors duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <BookmarkPlus size={18} />
+                        <span>Save</span>
+                      </motion.button>
+                    </div>
+                  </div>
+                </motion.header>
+
+                {/* Article Content */}
+                <motion.div
+                  className="prose-blog post-content"
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                />
+              </motion.div>
+            </article>
+
+            {/* Sidebar */}
+            <aside className="lg:col-span-1">
+              <div className="sidebar-sticky space-y-8">
+                {/* Author Box */}
+                <motion.div
+                  className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <div className="w-20 h-20 rounded-full mx-auto mb-4 bg-primary-100 flex items-center justify-center">
+                    <User size={32} className="text-primary-500" />
+                  </div>
+                  <h4 className="text-lg font-display font-bold text-gray-900">{post.author}</h4>
+                  <p className="text-sm text-gray-500 mb-4">Fashion Editor</p>
+                  <p className="text-sm text-gray-600">Curating the finest in kids' luxury fashion.</p>
+                </motion.div>
+
+                {/* Related Posts */}
+                {relatedPosts.length > 0 && (
+                  <motion.div
+                    className="bg-white p-6 rounded-xl shadow-lg border border-gray-100"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 1.0 }}
+                  >
+                    <div className="flex items-center space-x-2 mb-6">
+                      <Sparkles size={20} className="text-primary-500" />
+                      <h4 className="text-lg font-display font-bold text-gray-900">Related Posts</h4>
+                    </div>
+                    <div className="space-y-6">
+                      {relatedPosts.map(relatedPost => (
+                        <Link to={`/post/${relatedPost.slug}`} key={relatedPost.id} className="block group">
+                          <div className="flex items-start space-x-4">
+                            <img src={relatedPost.image} alt={relatedPost.title} className="w-20 h-20 object-cover rounded-lg flex-shrink-0" />
+                            <div>
+                              <h5 className="text-sm font-bold text-gray-800 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">{relatedPost.title}</h5>
+                              <span className="text-xs text-gray-500">{new Date(relatedPost.date).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </aside>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  )
+}
