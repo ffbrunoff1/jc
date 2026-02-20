@@ -190,4 +190,4 @@ export default function PostPage() {
                     <div className="flex items-center space-x-3">
                       <motion.button
                         onClick={handleShare}
-                        className="flex items-center space-x-2 px-4 py-2 bg-primary-100
+                        className="flex items-center space-x-2 px-4 py-2 bg-primary-100"
